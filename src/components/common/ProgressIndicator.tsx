@@ -1,9 +1,10 @@
 import React from 'react';
+import {useSignupStore} from "../../state/useSignupStore.ts";
 
-const currentStep = 1;
 const totalSteps = 7;
 const ProgressIndicator: React.FC = () => {
 
+  const currentStep = useSignupStore(state => state.currentStep);
   const steps = Array.from({ length: totalSteps }, (_, i) => i + 1);
 
   return (
