@@ -1,15 +1,15 @@
-import type {JSX} from "react";
-import {useSignupStore} from "./state/useSignupStore.ts";
-import {countryConfig} from "./data/countryConfig.ts";
-import ProgressIndicator from "./components/common/ProgressIndicator.tsx";
-import Step1CountrySelect from "./components/steps/Step1CountrySelect.tsx";
-import Step2CountryField from "./components/steps/Step2CountryField.tsx";
-import Step3CountryField from "./components/steps/Step3CountryField.tsx";
-import './App.css'
-import Step4CountryField from "./components/steps/Step4CountryField.tsx";
-import Step5CountryField from "./components/steps/Step5CountryField.tsx";
+import React, {type JSX} from 'react';
+import { useSignupStore } from './state/useSignupStore';
+import { countryConfig } from './data/countryConfig';
+import ProgressIndicator from './components/common/ProgressIndicator.tsx';
+import Step1CountrySelect from './components/steps/Step1CountrySelect';
+import Step2CountryField from './components/steps/Step2CountryField';
+import Step3CountryField from './components/steps/Step3CountryField';
+import Step4CountryField from './components/steps/Step4CountryField';
+import Step5CountryField from './components/steps/Step5CountryField';
+import Step6Avatar from './components/steps/Step6Avatar';
 
-function App() {
+const App: React.FC = () => {
   const currentStep = useSignupStore(state => state.currentStep);
   const selectedCountry = useSignupStore(state => state.selectedCountry);
 
@@ -33,21 +33,19 @@ function App() {
         case 5:
           content = <Step5CountryField />;
           break;
-        case 6:
-          content = <div>Step6CountryField</div>;
-          break;
-        case 7:
-          content = <div>Step7CountryField</div>;
-          break;
       }
+    } else if (currentStep === 1 + fieldCount + 1) {
+      // Avatar upload step
+      content = <Step6Avatar />;
     }
   }
+
   return (
     <div className="flex flex-col max-w-md mx-auto p-4">
       <ProgressIndicator />
       {content}
     </div>
   );
-}
+};
 
 export default App;
