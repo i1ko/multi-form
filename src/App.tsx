@@ -1,14 +1,14 @@
 import React, {type JSX} from 'react';
-import { useSignupStore } from './state/useSignupStore';
-import { countryConfig } from './data/countryConfig';
-import ProgressIndicator from './components/common/ProgressIndicator.tsx';
-import Step1CountrySelect from './components/steps/Step1CountrySelect';
-import Step2CountryField from './components/steps/Step2CountryField';
-import Step3CountryField from './components/steps/Step3CountryField';
-import Step4CountryField from './components/steps/Step4CountryField';
-import Step5CountryField from './components/steps/Step5CountryField';
-import Step6Avatar from './components/steps/Step6Avatar';
-import Step7Review from './components/steps/Step7Review';
+import { useSignupStore } from '@/src/state/useSignupStore';
+import { countryConfig } from '@/src/data/countryConfig';
+import ProgressIndicator from '@/src/components/common/ProgressIndicator.tsx';
+import Step1CountrySelect from '@/src/components/steps/Step1CountrySelect';
+import Step2CountryField from '@/src/components/steps/Step2CountryField';
+import Step3CountryField from '@/src/components/steps/Step3CountryField';
+import Step4CountryField from '@/src/components/steps/Step4CountryField';
+import Step5CountryField from '@/src/components/steps/Step5CountryField';
+import Step6Avatar from '@/src/components/steps/Step6Avatar';
+import Step7Review from '@/src/components/steps/Step7Review';
 
 const App: React.FC = () => {
   const currentStep = useSignupStore(state => state.currentStep);
