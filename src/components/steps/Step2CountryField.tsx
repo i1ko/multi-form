@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSignupStore } from '../../state/useSignupStore';
 import { countryConfig } from '../../data/countryConfig';
+import { validationSchemas } from '../../utils/validationSchemas';
 
 const Step2CountryField: React.FC = () => {
   const selectedCountry = useSignupStore(state => state.selectedCountry);
@@ -13,6 +14,7 @@ const Step2CountryField: React.FC = () => {
   const fieldConfig = countryConfig[selectedCountry].fields[0];
 
   const {
+    register,
     handleSubmit,
     formState: { errors },
     getValues
@@ -33,6 +35,12 @@ const Step2CountryField: React.FC = () => {
       <h2 className="text-lg font-semibold mb-4">{fieldConfig.label}</h2>
       <div className="mb-4">
         <label className="block font-medium mb-1">{fieldConfig.label}</label>
+        <input
+          type={fieldConfig.type || 'text'}
+          {...register(fieldConfig.name, validationSchemas[selectedCountry][fieldConfig.name])}
+          className="border border-gray-300 p-2 w-full"
+          autoFocus
+        />
         <p className="text-red-500 text-sm mt-1 h-[24px]">
           {errors[fieldConfig.name]
             ? errors[fieldConfig.name]?.message as string
