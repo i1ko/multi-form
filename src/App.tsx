@@ -1,48 +1,37 @@
-import React, {type JSX} from 'react';
-import { useSignupStore } from '@/src/state/useSignupStore';
-import { countryConfig } from '@/src/data/countryConfig';
+import React from 'react';
+import {useSignupStore} from '@/src/state/useSignupStore';
+import {flowDefinition} from "@/src/data/flowDefinition.ts";
 import ProgressIndicator from '@/src/components/common/ProgressIndicator.tsx';
 import Step1CountrySelect from '@/src/components/steps/Step1CountrySelect';
-import Step2CountryField from '@/src/components/steps/Step2CountryField';
-import Step3CountryField from '@/src/components/steps/Step3CountryField';
-import Step4CountryField from '@/src/components/steps/Step4CountryField';
-import Step5CountryField from '@/src/components/steps/Step5CountryField';
 import Step6Avatar from '@/src/components/steps/Step6Avatar';
 import Step7Review from '@/src/components/steps/Step7Review';
 
+
+function buildSteps(selectedCountry: string) {
+  const steps = [<Step1CountrySelect key="selectCountry" />];
+
+  if (!selectedCountry) {
+    return steps;
+  }
+
+  const countryFlow = flowDefinition[selectedCountry] || [];
+
+  countryFlow.forEach((StepComponent, index) => {
+    steps.push(<StepComponent key={`step-${index + 2}`} />);
+  });
+
+  steps.push(<Step6Avatar key="stepAvatar" />);
+
+  steps.push(<Step7Review key="stepReview" />);
+
+  return steps;
+}
 const App: React.FC = () => {
   const currentStep = useSignupStore(state => state.currentStep);
   const selectedCountry = useSignupStore(state => state.selectedCountry);
 
-  // Determine which component to render for the current step
-  let content: JSX.Element | null = null;
-  if (currentStep === 1) {
-    content = <Step1CountrySelect />;
-  } else if (selectedCountry) {
-    const fieldCount = countryConfig[selectedCountry]?.fields.length || 0;
-    if (currentStep >= 2 && currentStep <= 1 + fieldCount) {
-      switch (currentStep) {
-        case 2:
-          content = <Step2CountryField />;
-          break;
-        case 3:
-          content = <Step3CountryField />;
-          break;
-        case 4:
-          content = <Step4CountryField />;
-          break;
-        case 5:
-          content = <Step5CountryField />;
-          break;
-      }
-    } else if (currentStep === 1 + fieldCount + 1) {
-      // Avatar upload step
-      content = <Step6Avatar />;
-    } else if (currentStep === 1 + fieldCount + 2) {
-      // Review step
-      content = <Step7Review />;
-    }
-  }
+  const steps = buildSteps(selectedCountry);
+  const content = steps[currentStep - 1] || null;
 
   return (
     <div className="flex flex-col max-w-md mx-auto p-4 xs:w-80 w-auto">
