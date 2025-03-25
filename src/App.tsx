@@ -8,6 +8,7 @@ import Step3CountryField from './components/steps/Step3CountryField';
 import Step4CountryField from './components/steps/Step4CountryField';
 import Step5CountryField from './components/steps/Step5CountryField';
 import Step6Avatar from './components/steps/Step6Avatar';
+import Step7Review from './components/steps/Step7Review';
 
 const App: React.FC = () => {
   const currentStep = useSignupStore(state => state.currentStep);
@@ -37,6 +38,9 @@ const App: React.FC = () => {
     } else if (currentStep === 1 + fieldCount + 1) {
       // Avatar upload step
       content = <Step6Avatar />;
+    } else if (currentStep === 1 + fieldCount + 2) {
+      // Review step
+      content = <Step7Review />;
     }
   }
 
