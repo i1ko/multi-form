@@ -1,3 +1,14 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply
+    flex h-full flex-col items-center justify-center
+    bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400;
+  }
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
