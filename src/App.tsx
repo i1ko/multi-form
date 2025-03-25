@@ -45,7 +45,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col max-w-md mx-auto p-4">
+    <div className="flex flex-col max-w-md mx-auto p-4 xs:w-80 w-auto">
       <ProgressIndicator />
       {content}
     </div>

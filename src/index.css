@@ -8,6 +8,9 @@
     bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400;
   }
 }
+@theme {
+  --breakpoint-xs: 20rem;
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
