@@ -4,7 +4,10 @@ import {countryConfig} from "./data/countryConfig.ts";
 import ProgressIndicator from "./components/common/ProgressIndicator.tsx";
 import Step1CountrySelect from "./components/steps/Step1CountrySelect.tsx";
 import Step2CountryField from "./components/steps/Step2CountryField.tsx";
+import Step3CountryField from "./components/steps/Step3CountryField.tsx";
 import './App.css'
+import Step4CountryField from "./components/steps/Step4CountryField.tsx";
+import Step5CountryField from "./components/steps/Step5CountryField.tsx";
 
 function App() {
   const currentStep = useSignupStore(state => state.currentStep);
@@ -22,13 +25,13 @@ function App() {
           content = <Step2CountryField />;
           break;
         case 3:
-          content = <div>Step3CountryField</div>;
+          content = <Step3CountryField />;
           break;
         case 4:
-          content = <div>Step4CountryField</div>;
+          content = <Step4CountryField />;
           break;
         case 5:
-          content = <div>Step5CountryField</div>;
+          content = <Step5CountryField />;
           break;
         case 6:
           content = <div>Step6CountryField</div>;
