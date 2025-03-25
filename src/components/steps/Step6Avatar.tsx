@@ -6,6 +6,10 @@ type AvatarFormData = {
   avatar: FileList;
 };
 
+const MB = 1048576;
+const MAX_SIZE = 1024 * 1024;
+const MAX_WIDTH_PX = 600;
+const MAX_HEIGHT_PX = 600;
 const Step6Avatar: React.FC = () => {
   const storeAvatar = useSignupStore(state => state.avatar);
   const setAvatar = useSignupStore(state => state.setAvatar);
@@ -32,10 +36,10 @@ const Step6Avatar: React.FC = () => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
     // Validate file size
-    if (file.size > 1024 * 1024) {
+    if (file.size > MAX_SIZE) {
       setError('avatar', {
         type: 'validate',
-        message: 'File size must be at most 1MB'
+        message: `File size must be at most ${MAX_SIZE / MB}MB`
       });
       e.target.value = ''; // reset file input
       return;
@@ -45,10 +49,10 @@ const Step6Avatar: React.FC = () => {
     reader.onload = event => {
       const img = new Image();
       img.onload = () => {
-        if (img.width > 600 || img.height > 600) {
+        if (img.width > MAX_WIDTH_PX || img.height > MAX_HEIGHT_PX) {
           setError('avatar', {
             type: 'validate',
-            message: 'Image dimensions must be at most 600x600px'
+            message: `Image dimensions must be at most ${MAX_WIDTH_PX}x${MAX_HEIGHT_PX}px`
           });
           e.target.value = '';
         } else {
@@ -101,7 +105,7 @@ const Step6Avatar: React.FC = () => {
           ref={fileInputRef}
           {...fileField}
         />
-        <p className="text-sm text-gray-500">Max 600x600px, 1MB.</p>
+        <p className="text-sm text-gray-500">{`Max ${MAX_WIDTH_PX}x${MAX_HEIGHT_PX}px, ${MAX_SIZE / MB}MB.`}</p>
         <p className="text-red-500 text-sm mt-1 h-[24px]">
           {errors.avatar
             ? errors.avatar.message
