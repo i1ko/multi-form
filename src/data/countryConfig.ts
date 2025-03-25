@@ -1,4 +1,16 @@
-export const countryConfig = {
+export interface FieldConfig {
+  name: string;
+  label: string;
+  type?: string;
+  options?: string[];
+}
+
+interface CountryConfig {
+  label: string;
+  fields: FieldConfig[];
+}
+
+export const countryConfig: Record<string, CountryConfig> = {
   USA: {
     label: 'United States',
     fields: [

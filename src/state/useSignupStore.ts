@@ -40,7 +40,6 @@ export const useSignupStore = create<SignupState>()(
         const state = get();
         let totalSteps = 1;
         if (state.selectedCountry) {
-          // todo: fix the type error
           const fieldCount = countryConfig[state.selectedCountry]?.fields.length || 0;
           totalSteps = 1 + fieldCount + 2;
         }
